@@ -1,0 +1,77 @@
+@import"../../style/var.scss";
+
+.slide_wrapper{
+    height: 100%;
+    width: 100%;
+    padding-left: 2px;
+    margin-left: -2px;
+    overflow: hidden auto;
+
+    &::-webkit-scrollbar-track {
+        background: $main_color;
+        border-radius: 2px;
+    }
+    .ant-menu{
+        width: 100%!important;
+        border: none;
+    }
+
+    .ant-menu-submenu,.ant-menu {
+        background-color: $main_color!important;
+        color: #ccc!important;
+    }
+
+    .ant-menu-submenu{
+        background-color: $main_color;
+    }
+
+    .ant-menu-item-group{
+        background-color: $main_color!important;
+        .ant-menu-item-group-title{
+            color: #eee;
+            font-weight: bold;
+        }
+    }
+
+    .ant-menu-submenu-title,.ant-menu-item{
+        transition: all ease-in-out .2s!important;
+        background-color: $main_color;
+        i{
+            color: #ccc!important;
+        }
+        &:hover{
+            color: #fff!important;
+            background-color: lighten($color: $main_color, $amount: 5);
+            i{
+                color: #fff!important;
+            }
+        }
+        // background-color: lighten($color: $main_color, $amount: 10);
+    }
+
+    .ant-menu-item-group-list{
+        background-color: $main_color!important;
+    }
+
+    .ant-menu-item-selected{
+        &:hover{
+            color: #1890ff!important;
+            background-color: lighten($color: $main_color, $amount: 5);
+            i{
+                color: #fff!important;
+            }
+        }
+    }
+}
+
+.clip_scroller{
+    height: 100%;
+    margin-top: $header_height;
+    position: fixed;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    background-color: $main_color;
+    width: $slide_width;
+    overflow: hidden;
+}
