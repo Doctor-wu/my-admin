@@ -4,12 +4,14 @@ import { routeItem } from "../routes/utils";
 import "../style/DTBreadcrumb.scss";
 import { JumpRoute } from "../Layout/Slide/Slide";
 import SubMenu from "antd/lib/menu/SubMenu";
+import { IState } from '../store/index';
+import { Dispatch } from 'redux';
+import { IRouteAction } from "../store/reducers/routeReducer";
+import { connect } from "react-redux";
 
-interface IBreadcrumbProps {
-  target: routeItem;
-}
 
-function createBreads(target: routeItem): routeItem[] {
+function createBreads(target: routeItem|undefined): routeItem[] {
+    if(!target) return [];
   let result = [];
   while (target.parent) {
     result.unshift(target);
@@ -27,20 +29,24 @@ function createDropDownMenu(subs: routeItem[]) {
           <>
             {sub.subs ? (
               <SubMenu
-                title={[sub.icon && [<sub.icon />, "  "], sub.name].filter(
+                key={sub.name}
+                title={[sub.icon && [<sub.icon key={sub.name} />, "  "], sub.name].filter(
                   Boolean
                 )}
               >
                 {createDropDownMenu(sub.subs)}
               </SubMenu>
             ) : (
-              <Menu.Item>
+              <Menu.Item 
+                key={sub.name}
+              >
                 <div
+                  key={sub.name}
                   onClick={() => {
                     JumpRoute(sub.path || sub.redirect!);
                   }}
                 >
-                  {[sub.icon && [<sub.icon />, "  "], sub.name].filter(Boolean)}
+                  {[sub.icon && [<sub.icon key={sub.name} />, "  "], sub.name].filter(Boolean)}
                 </div>
               </Menu.Item>
             )}
@@ -51,14 +57,14 @@ function createDropDownMenu(subs: routeItem[]) {
   );
 }
 
-const DTBreadcrumb = (props: IBreadcrumbProps) => {
+const DTBreadcrumb = (props: any) => {
   console.log(props);
-
   return (
     <Breadcrumb className="dt_breadcrumb">
-      {createBreads(props.target).map((item) => {
+      {createBreads(props.target as routeItem).map((item) => {
         return (
           <Breadcrumb.Item
+          key={item.name}
             overlay={
               (item.subs && <Menu>{createDropDownMenu(item.subs)}</Menu>) ||
               (item.groups && (
@@ -67,7 +73,7 @@ const DTBreadcrumb = (props: IBreadcrumbProps) => {
               undefined
             }
           >
-            {[item.icon && [<item.icon />, "  "], item.name]}
+            {[item.icon && [<item.icon key={item.name} />, "  "], item.name]}
           </Breadcrumb.Item>
         );
       })}
@@ -75,4 +81,13 @@ const DTBreadcrumb = (props: IBreadcrumbProps) => {
   );
 };
 
-export default DTBreadcrumb;
+export default connect(
+    (state: IState) => {
+      return {
+        target: state.routes.target,
+      };
+    },
+    (dispatch: Dispatch<IRouteAction>) => {
+      return { dispatch };
+    }
+  )(DTBreadcrumb);

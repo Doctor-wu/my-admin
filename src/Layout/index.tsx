@@ -1,5 +1,5 @@
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header/Header";
 import Slide from "./Slide/Slide";
 import "./layout.scss";
@@ -8,12 +8,16 @@ import { IRouteAction } from "../store/reducers/routeReducer";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { routeItem } from "../routes/utils";
-import DTBreadcrumb from '../components/DTBreadcrumb';
+import DTBreadcrumb from "../components/DTBreadcrumb";
 import { Divider } from "antd";
+import { actionTypes } from "../store/reducers/types";
 
-const Layout = (props: any) => {
+const Layout = (props: {
+  dispatch?: Dispatch<IRouteAction>;
+  routes: Array<routeItem>;
+}) => {
   let [fullPage, setFullPage] = useState<Boolean>(false);
-  let [targetBreadcrumb,setTargetBreadcrumb] = useState<routeItem>(props.routes[0]);
+  console.log(props);
 
   return (
     <div className="layout">
@@ -21,8 +25,8 @@ const Layout = (props: any) => {
       {!fullPage && <Slide></Slide>}
       <div className={`content-wrapper${fullPage ? " fullPage" : ""}`}>
         <div className="content">
-          <DTBreadcrumb target={targetBreadcrumb}/>
-          <Divider style={{margin: "7px 0"}} />
+          <DTBreadcrumb />
+          <Divider style={{ margin: "7px 0" }} />
           <HashRouter>
             <Switch>
               {props.routes.map((route: routeItem) => {
@@ -31,11 +35,14 @@ const Layout = (props: any) => {
                     path={route.path}
                     key={route.path}
                     exact
-                    render={(props) => {
-                      setTargetBreadcrumb(route);
-                      if (route.fullPage && !fullPage) {
+                    render={() => {
+                      props.dispatch!({
+                        type: actionTypes.SETROUTETARGET,
+                        target: route,
+                      });
+                      if (route.fullPage && fullPage === false) {
                         setFullPage(true);
-                      } else if (!route.fullPage && fullPage) {
+                      } else if (!route.fullPage && fullPage === true) {
                         setFullPage(false);
                       }
                       return route.redirect ? (

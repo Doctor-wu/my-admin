@@ -1,18 +1,23 @@
 import { staticMenu } from "../../routes";
-import { flattenRoute } from "../../routes/utils";
+import { flattenRoute, routeItem } from "../../routes/utils";
+import { routeInfo } from '../../routes/index';
+import { actionTypes, IActionTypes } from './types';
 
 export interface IRouteState {
-  routes: Array<any>;
+  routes: Array<routeItem>;
+  target: routeInfo;
 }
 
 export interface IRouteAction {
   type: Symbol;
-  routes: Array<any>
+  routes?: Array<any>;
+  target?: routeInfo;
   [prop: string]: any;
 }
 
 let initRoutes: IRouteState = {
-  routes: flattenRoute(staticMenu),
+  routes: flattenRoute(staticMenu) as routeItem[],
+  target: staticMenu[0]
 };
 
 export default function routeReducer(
@@ -20,8 +25,8 @@ export default function routeReducer(
   action: IRouteAction
 ): IRouteState {
   switch (action.type) {
-    case Symbol():
-      return { ...state };
+    case actionTypes.SETROUTETARGET:
+      return { ...state, target:action.target as routeInfo };
 
     default:
       return { ...state };
