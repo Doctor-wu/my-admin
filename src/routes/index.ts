@@ -46,6 +46,7 @@ export const staticMenu: Array<routeInfo> = [
       {
         name: "groupItem1",
         icon: BarsOutlined,
+        redirect: "/group/item1-1",
         groups: [
           {
             path: "/group/item1-1",
@@ -69,6 +70,7 @@ export const staticMenu: Array<routeInfo> = [
       },
       {
         name: "groupItem2",
+        redirect: "/group/item2-1",
         icon: BarsOutlined,
         groups: [
           {
@@ -105,7 +107,6 @@ export const staticMenu: Array<routeInfo> = [
           icon: GroupOutlined,
         },
         {
-          path: "/nest-sub",
           name: "nest-sub",
           icon: FolderOutlined,
           subs:[
@@ -113,6 +114,12 @@ export const staticMenu: Array<routeInfo> = [
               path: "/sub2",
               name: "sub2",
               component: Content({ show: "sub2" }),
+              icon: GroupOutlined,
+            },
+            {
+              path: "/sub3",
+              name: "sub3",
+              component: Content({ show: "sub3" }),
               icon: GroupOutlined,
             },
           ]

@@ -1,3 +1,12 @@
+@import "../style/var.scss";
+
 .dt_breadcrumb{
-    padding: 5px 10px!important;
+    padding: 12px 0 5px 0!important;
+}
+
+.ant-dropdown-trigger{
+    cursor: pointer!important;
+    &:hover{
+        color: $main_color;
+    }
 }

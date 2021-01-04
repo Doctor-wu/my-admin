@@ -2,7 +2,8 @@ import { routeInfo } from "./index";
 export interface routeItem extends routeInfo{
   path: string;
   component: JSX.Element;
-  parent?:routeInfo;
+  parent?:routeItem;
+  subs?:routeItem[];
   [prop: string]: any;
 }
 export const flattenRoute: (
@@ -42,6 +43,7 @@ const iterateRoute = function (
     return {
       ...route,
       path: route.path!,
+      subs: route.subs,
       component: route.component!,
       parent
     };

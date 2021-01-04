@@ -9,9 +9,11 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { routeItem } from "../routes/utils";
 import DTBreadcrumb from '../components/DTBreadcrumb';
+import { Divider } from "antd";
 
 const Layout = (props: any) => {
   let [fullPage, setFullPage] = useState<Boolean>(false);
+  let [targetBreadcrumb,setTargetBreadcrumb] = useState<routeItem>(props.routes[0]);
 
   return (
     <div className="layout">
@@ -19,7 +21,8 @@ const Layout = (props: any) => {
       {!fullPage && <Slide></Slide>}
       <div className={`content-wrapper${fullPage ? " fullPage" : ""}`}>
         <div className="content">
-          <DTBreadcrumb />
+          <DTBreadcrumb target={targetBreadcrumb}/>
+          <Divider style={{margin: "7px 0"}} />
           <HashRouter>
             <Switch>
               {props.routes.map((route: routeItem) => {
@@ -29,6 +32,7 @@ const Layout = (props: any) => {
                     key={route.path}
                     exact
                     render={(props) => {
+                      setTargetBreadcrumb(route);
                       if (route.fullPage && !fullPage) {
                         setFullPage(true);
                       } else if (!route.fullPage && fullPage) {
