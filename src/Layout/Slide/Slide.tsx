@@ -3,15 +3,9 @@ import "./Slide.scss";
 import { Menu } from "antd";
 import { IState } from "../../store/index";
 import { Dispatch } from "redux";
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
 import { IMenuAction } from "../../store/reducers/meunReducer";
 import { connect } from "react-redux";
 import { routeInfo } from "../../routes";
-// import { IProps } from "../index.d";
 
 const { SubMenu } = Menu;
 

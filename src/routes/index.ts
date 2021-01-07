@@ -1,6 +1,7 @@
 import Content from "../components/Content";
 import { BarsOutlined, FolderOutlined, GroupOutlined, HomeOutlined } from "@ant-design/icons";
 import { flattenRoute } from "./utils";
+import Login from "../views/Login";
 export interface routeInfo {
   path?: string;
   name?: string;
@@ -21,12 +22,19 @@ export const staticMenu: Array<routeInfo> = [
     name: "首页",
   },
   {
+    path: "/Login",
+    component: Login(),
+    hide: true,
+    name: "登录",
+    fullPage:true
+  },
+  {
     icon: FolderOutlined,
-    name: "Hello",
+    name: "订单管理",
     subs: [
         {
           path: "/hello",
-          name: "hello",
+          name: "订单列表",
           component: Content({ show: "hello" }),
           icon: GroupOutlined,
           redirect: "/world"
