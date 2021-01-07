@@ -1,17 +1,20 @@
 import Content from "../components/Content";
-import { BarsOutlined, FolderOutlined, GroupOutlined, HomeOutlined } from "@ant-design/icons";
-import { flattenRoute } from "./utils";
+import {BarsOutlined, FolderOutlined, GroupOutlined, HomeOutlined} from "@ant-design/icons";
+import {flattenRoute} from "./utils";
 import Login from "../views/Login";
+import CommodityList from "../views/CommodityList";
+
 export interface routeInfo {
   path?: string;
   name?: string;
   redirect?: string;
   hide?: boolean;
   icon?: any;
-  component?: JSX.Element;
+  component?: JSX.Element | any;
   subs?: Array<routeInfo>;
   groups?: Array<routeInfo>;
-  fullPage?:Boolean;
+  fullPage?: Boolean;
+  useClass?: Boolean;
 }
 
 export const staticMenu: Array<routeInfo> = [
@@ -37,70 +40,19 @@ export const staticMenu: Array<routeInfo> = [
           name: "订单列表",
           component: Content({ show: "hello" }),
           icon: GroupOutlined,
-          redirect: "/world"
-        },
-        {
-          path: "/world",
-          name: "world",
-          component: Content({ show: "world" }),
-          icon: GroupOutlined,
         },
     ],
   },
   {
     icon: FolderOutlined,
-    name: "Group",
+    name: "商品管理",
     subs: [
       {
-        name: "groupItem1",
+        path: "/commodityList",
+        name: "商品列表",
         icon: BarsOutlined,
-        redirect: "/group/item1-1",
-        groups: [
-          {
-            path: "/group/item1-1",
-            name: "groupItem1-1",
-            icon: GroupOutlined,
-            component: Content({ show: "groupItem1-1" }),
-          },
-          {
-            path: "/group/item1-2",
-            name: "groupItem1-2",
-            icon: GroupOutlined,
-            component: Content({ show: "groupItem1-2" }),
-          },
-          {
-            path: "/group/item1-3",
-            name: "groupItem1-3",
-            icon: GroupOutlined,
-            component: Content({ show: "groupItem1-3" }),
-          },
-        ],
-      },
-      {
-        name: "groupItem2",
-        redirect: "/group/item2-1",
-        icon: BarsOutlined,
-        groups: [
-          {
-            path: "/group/item2-1",
-            name: "groupItem2-1",
-            icon: GroupOutlined,
-            component: Content({ show: "groupItem2-1" }),
-          },
-          {
-            path: "/group/item2-2",
-            name: "groupItem2-2",
-            icon: GroupOutlined,
-            component: Content({ show: "groupItem2-2" }),
-          },
-          {
-            path: "/group/item2-3",
-            name: "groupItem2-3",
-            icon: GroupOutlined,
-            component: Content({ show: "groupItem2-3" }),
-            fullPage:true
-          },
-        ],
+        component: CommodityList,
+        useClass: true
       },
     ],
   },

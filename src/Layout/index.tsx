@@ -37,21 +37,22 @@ const Layout = (props: {
                         exact
                         render={() => {
                           props.dispatch!({
-                        type: actionTypes.SETROUTETARGET,
-                        target: route,
-                      });
-                      if (route.fullPage && fullPage === false) {
-                        setFullPage(true);
-                      } else if (!route.fullPage && fullPage === true) {
-                        setFullPage(false);
-                      }
-                      return route.redirect ? (
-                        <Redirect to={route.redirect}></Redirect>
-                      ) : (
-                        route.component
-                      );
-                    }}
-                  ></Route>
+                            type: actionTypes.SETROUTETARGET,
+                            target: route,
+                          });
+                          if (route.fullPage && fullPage === false) {
+                            setFullPage(true);
+                          } else if (!route.fullPage && fullPage === true) {
+                            setFullPage(false);
+                          }
+                          return route.redirect ? (
+                              <Redirect to={route.redirect}/>
+                          ) : (
+                              // @ts-ignore
+                              route.useClass?<route.component/>:route.component
+                          );
+                        }}
+                    />
                 );
               })}
             </Switch>

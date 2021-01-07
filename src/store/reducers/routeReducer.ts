@@ -1,7 +1,7 @@
 import { staticMenu } from "../../routes";
 import { flattenRoute, routeItem } from "../../routes/utils";
-import { routeInfo } from '../../routes/index';
-import { actionTypes, IActionTypes } from './types';
+import { routeInfo } from '../../routes';
+import { actionTypes} from './types';
 
 export interface IRouteState {
   routes: Array<routeItem>;

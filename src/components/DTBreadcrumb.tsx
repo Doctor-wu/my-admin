@@ -37,7 +37,7 @@ function createDropDownMenu(subs: routeItem[]) {
                 {createDropDownMenu(sub.subs)}
               </SubMenu>
             ) : (
-              <Menu.Item 
+              <Menu.Item
                 key={sub.name}
               >
                 <div
@@ -64,7 +64,7 @@ const DTBreadcrumb = (props: any) => {
       {createBreads(props.target as routeItem).map((item) => {
         return (
           <Breadcrumb.Item
-          key={item.name}
+          key={item.name || item.path}
             overlay={
               (item.subs && <Menu>{createDropDownMenu(item.subs)}</Menu>) ||
               (item.groups && (

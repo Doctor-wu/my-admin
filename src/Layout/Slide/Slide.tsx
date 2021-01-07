@@ -32,7 +32,7 @@ export const createRoute = (menu: routeInfo) => {
       <Menu.Item
         onClick={() => JumpRoute(menu.path!)}
         icon={menu.icon && <menu.icon />}
-        key={menu.path}
+        key={menu.path || menu.name}
       >
         {menu.name}
       </Menu.Item>
