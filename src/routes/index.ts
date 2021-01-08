@@ -26,21 +26,29 @@ export const staticMenu: Array<routeInfo> = [
   },
   {
     path: "/Login",
-    component: Login(),
+    component: Login,
     hide: true,
     name: "登录",
-    fullPage:true
+    fullPage: true,
+    useClass: true
+  },
+  {
+    path: "/Login",
+    component: Login,
+    hide: true,
+    name: "登录",
+    fullPage: true
   },
   {
     icon: FolderOutlined,
     name: "订单管理",
     subs: [
-        {
-          path: "/hello",
-          name: "订单列表",
-          component: Content({ show: "hello" }),
-          icon: GroupOutlined,
-        },
+      {
+        path: "/hello",
+        name: "订单列表",
+        component: Content({show: "hello"}),
+        icon: GroupOutlined,
+      },
     ],
   },
   {
