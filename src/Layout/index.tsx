@@ -10,66 +10,67 @@ import {connect} from "react-redux";
 import {routeItem} from "../routes/utils";
 import DTBreadcrumb from "../components/DTBreadcrumb";
 import {Divider} from "antd";
-import {actionTypes} from "../store/reducers/types";
+import FullPageRoute from "./FullPageRoute";
 
 const Layout = (props: {
-  dispatch?: Dispatch<IRouteAction>;
-  routes: Array<routeItem>;
+    dispatch?: Dispatch<IRouteAction>;
+    routes: Array<routeItem>;
 }) => {
-  let [fullPage, setFullPage] = useState<Boolean>(false);
-  console.log(props);
+    let [fullPage, setFullPage] = useState<Boolean>(false);
 
-  return (
-      <div className="layout">
-      {!fullPage && <Header></Header>}
-      {!fullPage && <Slide></Slide>}
-      <div className={`content-wrapper${fullPage ? " fullPage" : ""}`}>
-        <div className="content">
-          {!fullPage && <><DTBreadcrumb/>
-            <Divider style={{margin: "7px 0"}}/></>}
-          <HashRouter>
-            <Switch>
-              {props.routes.map((route: routeItem) => {
-                return (
-                    <Route
-                        path={route.path}
-                        key={route.path}
-                        exact
-                        render={() => {
-                          props.dispatch!({
-                            type: actionTypes.SETROUTETARGET,
-                            target: route,
-                          });
-                          if (route.fullPage && fullPage === false) {
-                            setFullPage(true);
-                          } else if (!route.fullPage && fullPage === true) {
-                            setFullPage(false);
-                          }
-                          return route.redirect ? (
-                              <Redirect to={route.redirect}/>
-                          ) : (
-                              // @ts-ignore
-                              route.useClass?<route.component/>:route.component
-                          );
-                        }}
-                    />
-                );
-              })}
-            </Switch>
-          </HashRouter>
+    return (
+        <div className="layout">
+            {!fullPage && <Header/>}
+            {!fullPage && <Slide/>}
+            <div className={`content-wrapper${fullPage ? " fullPage" : ""}`}>
+                <div className="content">
+                    <HashRouter>
+                        {
+                            // @ts-ignore
+                            !fullPage && <><DTBreadcrumb routes={props.routes}/><Divider style={{margin: "7px 0"}}/></>}
+                        <Switch>
+                            {props.routes.map((route: routeItem) => {
+                                return (
+                                    <Route
+                                        path={route.path}
+                                        key={route.path}
+                                        exact
+                                        render={() => {
+                                            // if (route.fullPage && fullPage === false) {
+                                            //     setFullPage(true);
+                                            // } else if (!route.fullPage && fullPage === true) {
+                                            //     setFullPage(false);
+                                            // }
+                                            return route.redirect ? (
+                                                <Redirect key={route.name + "1"} to={route.redirect}/>
+                                            ) : (
+                                                route.fullPage ?
+                                                    <FullPageRoute>
+                                                        {route.component}
+                                                    </FullPageRoute>
+                                                    // @ts-ignore
+                                                    : <route.component key={route.name + "1"}/>
+                                            )
+                                                ;
+                                        }}
+                                    />
+                                );
+                            })}
+                        </Switch>
+                    </HashRouter>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default connect(
-  (state: IState) => {
-    return {
-      routes: state.routes.routes,
-    };
-  },
-  (dispatch: Dispatch<IRouteAction>) => {
-    return { dispatch };
-  }
+    (state: IState) => {
+        return {
+            routes: state.routes.routes,
+        };
+    },
+    (dispatch: Dispatch<IRouteAction>) => {
+        return {dispatch};
+    }
 )(Layout);

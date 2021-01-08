@@ -3,7 +3,6 @@ import helper from "../utils/helper";
 
 
 
-console.log(requestFuncs)
 export const LoginApi = {
     login: (data: any) => requestFuncs.$post("/admin/login", helper.paramStringify(data),{
         headers: {

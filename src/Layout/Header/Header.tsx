@@ -1,31 +1,39 @@
-import React from "react";
-import {AppstoreFilled, LogoutOutlined, UserOutlined} from "@ant-design/icons";
+import React, {useEffect, useState} from "react";
+import {LogoutOutlined, ShopOutlined, UserOutlined} from "@ant-design/icons";
 import {Dropdown, Menu} from "antd";
 import "./Header.scss";
 import Avatar from "react-avatar";
+import {LogOut} from "../../utils/user";
+import {UserApi} from "../../api/UserApi";
 
 
 const dropdown = <Menu>
     <Menu.Item>
         <UserOutlined/>个人信息
     </Menu.Item>
-    <Menu.Item>
-        <LogoutOutlined />退出登录
+    <Menu.Item onClick={() => LogOut()}>
+        <LogoutOutlined/>退出登录
     </Menu.Item>
 </Menu>
 
 const Header = () => {
+    let [userName, setUserName] = useState("");
+    useEffect(() => {
+        UserApi.getUserInfo().then(res => {
+            setUserName(res?.data?.username);
+        })
+    })
     return (
         <div className="header_wrapper">
             <div className="logo">
-                <AppstoreFilled style={{color: "#fff", fontSize: "40px", marginRight: "10px"}}/>
+                <ShopOutlined style={{color: "#fff", fontSize: "40px", marginRight: "10px"}}/>
                 Admin
             </div>
             <div className="operation">
                 <Dropdown overlay={dropdown}>
                     <div className="userInfo">
-                        <Avatar color="#ffd460" className="avatar" name="Doctorwu" size="45" round/>
-                        <span className="username">Doctorwu</span>
+                        <Avatar color="#ffd460" className="avatar" name={userName} size="45" round/>
+                        <span className="username">{userName}</span>
                     </div>
                 </Dropdown>
             </div>

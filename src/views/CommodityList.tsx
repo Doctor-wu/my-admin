@@ -2,13 +2,13 @@ import React from "react";
 import {CommodityListApi} from "../api/CommodityListApi";
 import {Space, Table, Tag} from 'antd';
 
-const {Column, ColumnGroup} = Table;
+const {Column} = Table;
 
 class CommodityList extends React.Component {
     commodityList = [];
     loading = true;
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         CommodityListApi.getCommodityList().then(res => {
             console.log(res)
             this.commodityList = res.data;
@@ -20,8 +20,8 @@ class CommodityList extends React.Component {
     render() {
         return (
             <>
-                <Table dataSource={this.commodityList} loading={this.loading}>
-                    <Column title="商品名" dataIndex="name" key="id"/>
+                <Table dataSource={this.commodityList} rowKey={(record: any) => record.id} loading={this.loading}>
+                    <Column title="商品名" dataIndex="name" key="name"/>
                     <Column title="商品价格" dataIndex="price" key="id"/>
                     <Column
                         title="Type"
@@ -35,7 +35,7 @@ class CommodityList extends React.Component {
                     />
                     <Column
                         title="操作"
-                        key="id"
+                        key="operate"
                         render={(text, record: any) => (
                             <Space size="middle">
                                 <a>Invite {record.lastName}</a>
