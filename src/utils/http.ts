@@ -31,7 +31,7 @@ HttpRequest.interceptors.response.use(
         return res;
     },
     error => {
-        const code = error.response.status
+        const code = error.response?.status
         if (code === 403) {
             JumpRoute("/Login");
             notification.warn({

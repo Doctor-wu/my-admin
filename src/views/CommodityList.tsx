@@ -1,66 +1,78 @@
 import React from "react";
-import {CommodityListApi} from "../api/CommodityListApi";
-import {Space, Table, Tag} from 'antd';
+import CommodityTable from "../components/Commondity/CommondityTable";
+import PipeDecorator from "../utils/pipe-decorator";
+import CommodityModal, {commodityModalMode} from "../components/Commondity/CommodityModal";
+import {Button, Col, Row, Space} from "antd";
+import {PlusCircleOutlined, RedoOutlined} from "@ant-design/icons";
 
-const {Column} = Table;
-
+@PipeDecorator
 class CommodityList extends React.Component {
-    commodityList = [];
-    loading = true;
+    ModalMode: commodityModalMode = commodityModalMode.attach;
+    ModalDataSource = {};
 
-    UNSAFE_componentWillMount() {
-        CommodityListApi.getCommodityList().then(res => {
-            console.log(res)
-            this.commodityList = res.data;
-            this.loading = false;
-            this.forceUpdate()
+    setModalMode = (mode: commodityModalMode) => {
+        this.setState({
+            ModalMode: mode
         });
     }
+
+    refresh() {
+        // @ts-ignore
+        this.refs.table.getDataSource();
+        this.setState({
+            ModalMode: commodityModalMode.attach,
+            ModalDataSource: undefined
+        });
+    }
+
+    updateCommodity(data: any) {
+        data["price"] = Number(data["price"]);
+        console.log(this)
+        // @ts-ignore
+        this.refs.modal.updateState({
+            mode: commodityModalMode.edit,
+            fields: Object.keys(data).map(key => ({
+                name: key,
+                value: data[key]
+            }))
+        });
+        // @ts-ignore
+        this.refs.modal.showModal();
+    }
+
 
     render() {
         return (
             <>
-                <Table dataSource={this.commodityList} rowKey={(record: any) => record.id} loading={this.loading}>
-                    <Column title="商品名" dataIndex="name" key="name"/>
-                    <Column title="商品价格" dataIndex="price" key="id"/>
-                    <Column
-                        title="Type"
-                        dataIndex="type"
-                        key="id"
-                        render={type => (
-                            <Tag color="blue">
-                                {type}
-                            </Tag>
-                        )}
-                    />
-                    <Column
-                        title="操作"
-                        key="operate"
-                        render={(text, record: any) => (
-                            <Space size="middle">
-                                <a>Invite {record.lastName}</a>
-                                <a>Delete</a>
-                            </Space>
-                        )}
-                    />
-                </Table>
+                <Row style={{margin: "15px 0 15px 0"}}>
+
+                    <Space size="middle">
+                        {
+                            // @ts-ignore
+                            <CommodityModal ref="modal" mode={this.ModalMode} ModalDataSource={this.ModalDataSource}
+                                            parent={this}>
+                                {(showModal: any) => {
+                                    return (
+                                        <Button type="primary" onClick={showModal} ghost>
+                                            <PlusCircleOutlined/>
+                                            添加商品
+                                        </Button>
+                                    )
+                                }}
+                            </CommodityModal>
+                        }
+
+                        <Button type="ghost" onClick={this.refresh.bind(this)}>
+                            <RedoOutlined/>
+                            刷新
+                        </Button>
+                    </Space>
+                </Row>
+                <CommodityTable parent={this} updateCommodity={this.updateCommodity} ref="table"/>
             </>
         );
     }
 }
 
-
-// function CommodityList() {
-//     let [commodity, setCommodity] = useState<any>();
-//     useEffect(() => {
-//         CommodityListApi.getCommodityList().then(res => {
-//             console.log(res)
-//             setCommodity(res);
-//         });
-//     })
-//     return (
-//
-//     )
-// }
 
 export default CommodityList;

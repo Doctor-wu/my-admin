@@ -10,6 +10,8 @@ import {
 // import {flattenRoute} from "./utils";
 import Login from "../views/Login";
 import CommodityList from "../views/CommodityList";
+import BannerList from "../views/BannerList";
+import IndexView from "../views/IndexView";
 
 export interface routeInfo {
   path?: string;
@@ -27,7 +29,7 @@ export interface routeInfo {
 export const staticMenu: Array<routeInfo> = [
   {
     path: "/",
-    component: () => Content({show: "首页"}),
+    component: IndexView,
     icon: HomeOutlined,
     name: "首页",
   },
@@ -60,6 +62,19 @@ export const staticMenu: Array<routeInfo> = [
         name: "商品列表",
         icon: OrderedListOutlined,
         component: CommodityList,
+        useClass: true
+      },
+    ],
+  },
+  {
+    icon: ShoppingOutlined,
+    name: "Banner管理",
+    subs: [
+      {
+        path: "/uploadBanner",
+        name: "更新Banner",
+        icon: OrderedListOutlined,
+        component: BannerList,
         useClass: true
       },
     ],
