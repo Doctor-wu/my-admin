@@ -7,7 +7,7 @@ import {
   OrderedListOutlined,
   ShoppingOutlined
 } from "@ant-design/icons";
-import {flattenRoute} from "./utils";
+// import {flattenRoute} from "./utils";
 import Login from "../views/Login";
 import CommodityList from "../views/CommodityList";
 
@@ -40,13 +40,6 @@ export const staticMenu: Array<routeInfo> = [
     useClass: true
   },
   {
-    path: "/Login",
-    component: Login,
-    hide: true,
-    name: "登录",
-    fullPage: true
-  },
-  {
     icon: MoneyCollectOutlined,
     name: "订单管理",
     subs: [
@@ -74,14 +67,13 @@ export const staticMenu: Array<routeInfo> = [
   {
     icon: FolderOutlined,
     name: "Nest-Sub",
-    // hide: true,
+    hide: true,
     subs: [
       {
         path: "/world2",
         name: "world2",
         component: () => Content({show: "world2"}),
         icon: GroupOutlined,
-        fullPage: true
       },
       {
         name: "nest-sub",
@@ -105,5 +97,5 @@ export const staticMenu: Array<routeInfo> = [
   },
 ];
 
-console.log(flattenRoute(staticMenu));
+// console.log(flattenRoute(staticMenu));
 

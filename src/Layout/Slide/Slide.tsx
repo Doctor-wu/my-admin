@@ -55,7 +55,6 @@ export const createMenu: (menus: Array<routeInfo>) => JSX.Element = (menus) => {
 };
 
 const Slide = (props: any) => {
-  console.log(props);
 
   return (
     <div className="clip_scroller">

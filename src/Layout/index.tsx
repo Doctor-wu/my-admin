@@ -1,5 +1,5 @@
 import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
-import React, {useState} from "react";
+import React from "react";
 import Header from "./Header/Header";
 import Slide from "./Slide/Slide";
 import "./layout.scss";
@@ -15,19 +15,19 @@ import FullPageRoute from "./FullPageRoute";
 const Layout = (props: {
     dispatch?: Dispatch<IRouteAction>;
     routes: Array<routeItem>;
+    target: routeItem;
 }) => {
-    let [fullPage, setFullPage] = useState<Boolean>(false);
-
     return (
         <div className="layout">
-            {!fullPage && <Header/>}
-            {!fullPage && <Slide/>}
-            <div className={`content-wrapper${fullPage ? " fullPage" : ""}`}>
+            {!props.target.fullPage && <Header/>}
+            {!props.target.fullPage && <Slide/>}
+            <div className={`content-wrapper${props.target.fullPage ? " fullPage" : ""}`}>
                 <div className="content">
                     <HashRouter>
                         {
                             // @ts-ignore
-                            !fullPage && <><DTBreadcrumb routes={props.routes}/><Divider style={{margin: "7px 0"}}/></>}
+                            !props.target.fullPage && <><DTBreadcrumb routes={props.routes}/><Divider
+                                style={{margin: "7px 0"}}/></>}
                         <Switch>
                             {props.routes.map((route: routeItem) => {
                                 return (
@@ -36,11 +36,6 @@ const Layout = (props: {
                                         key={route.path}
                                         exact
                                         render={() => {
-                                            // if (route.fullPage && fullPage === false) {
-                                            //     setFullPage(true);
-                                            // } else if (!route.fullPage && fullPage === true) {
-                                            //     setFullPage(false);
-                                            // }
                                             return route.redirect ? (
                                                 <Redirect key={route.name + "1"} to={route.redirect}/>
                                             ) : (
@@ -68,9 +63,11 @@ export default connect(
     (state: IState) => {
         return {
             routes: state.routes.routes,
+            target: state.routes.target
         };
     },
     (dispatch: Dispatch<IRouteAction>) => {
         return {dispatch};
     }
+// @ts-ignore
 )(Layout);

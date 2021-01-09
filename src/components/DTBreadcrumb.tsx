@@ -58,7 +58,6 @@ const DTBreadcrumb = (props: any) => {
     useEffect(() => {
         props.history.listen((location: any) => {
             let target = props.routes.find((route: any) => route.path === location.pathname);
-            console.log(target);
             setTarget(target);
         })
     })
