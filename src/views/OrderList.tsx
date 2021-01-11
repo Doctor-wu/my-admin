@@ -27,11 +27,11 @@ const OrderList = () => {
         switch (activeKey) {
             case "1":
                 // @ts-ignore
-                tableR1.current();
+                tableR1.current instanceof Function && tableR1.current();
                 break;
             case "2":
                 // @ts-ignore
-                tableR2.current();
+                tableR2.current instanceof Function && tableR2.current();
                 break;
         }
     }
