@@ -1,8 +1,7 @@
 import React from "react";
 import {BannerApi} from "../../api/BannerApi";
-import {Image, message, Popconfirm, Space, Table, Tag} from 'antd';
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {log} from "util";
+import {Image, Space, Table} from 'antd';
+import {EditOutlined} from "@ant-design/icons";
 
 const {Column} = Table;
 

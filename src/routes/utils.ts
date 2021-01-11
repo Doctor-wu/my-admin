@@ -1,4 +1,5 @@
-import { routeInfo } from "./index";
+import {routeInfo} from "./index";
+
 export interface routeItem extends routeInfo{
   path: string;
   component: JSX.Element;

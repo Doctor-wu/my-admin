@@ -1,7 +1,6 @@
 import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
-import {Form, Image, Input, InputNumber, message, Radio, Select, Spin} from 'antd';
-import {Option} from "antd/es/mentions";
+import {Form, Image, message, Radio, Spin} from 'antd';
 import {BannerApi} from "../../api/BannerApi";
 
 const layout = {

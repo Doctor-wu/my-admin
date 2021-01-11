@@ -22,7 +22,7 @@ const Header = () => {
         UserApi.getUserInfo().then(res => {
             setUserName(res?.data?.username);
         })
-    })
+    }, []);
     return (
         <div className="header_wrapper">
             <div className="logo">

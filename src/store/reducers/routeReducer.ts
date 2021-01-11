@@ -1,7 +1,6 @@
-import { staticMenu } from "../../routes";
-import { flattenRoute, routeItem } from "../../routes/utils";
-import { routeInfo } from '../../routes';
-import { actionTypes} from './types';
+import {routeInfo, staticMenu} from "../../routes";
+import {flattenRoute, routeItem} from "../../routes/utils";
+import {actionTypes} from './types';
 
 export interface IRouteState {
   routes: Array<routeItem>;

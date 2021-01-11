@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import {DollarCircleOutlined} from "@ant-design/icons";
+import React from 'react';
 import {Card} from "antd";
 
 

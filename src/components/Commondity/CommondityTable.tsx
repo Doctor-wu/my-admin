@@ -2,7 +2,6 @@ import React from "react";
 import {CommodityListApi} from "../../api/CommodityListApi";
 import {Image, message, Popconfirm, Space, Table, Tag} from 'antd';
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {log} from "util";
 
 const {Column} = Table;
 

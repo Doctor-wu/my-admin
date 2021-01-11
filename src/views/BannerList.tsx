@@ -2,9 +2,8 @@ import React from "react";
 import BannerTable from "../components/Banner/BannerTable";
 import PipeDecorator from "../utils/pipe-decorator";
 import BannerModal, {bannerModalMode} from "../components/Banner/BannerModal";
-import {Button, Col, Row, Space} from "antd";
-import {PlusCircleOutlined, RedoOutlined} from "@ant-design/icons";
-import CommodityModal from "../components/Commondity/CommodityModal";
+import {Button, Row, Space} from "antd";
+import {RedoOutlined} from "@ant-design/icons";
 
 @PipeDecorator
 class BannerList extends React.Component {

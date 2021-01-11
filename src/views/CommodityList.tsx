@@ -2,7 +2,7 @@ import React from "react";
 import CommodityTable from "../components/Commondity/CommondityTable";
 import PipeDecorator from "../utils/pipe-decorator";
 import CommodityModal, {commodityModalMode} from "../components/Commondity/CommodityModal";
-import {Button, Col, Row, Space} from "antd";
+import {Button, Row, Space} from "antd";
 import {PlusCircleOutlined, RedoOutlined} from "@ant-design/icons";
 
 @PipeDecorator

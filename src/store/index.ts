@@ -1,7 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
-import menuReducer, { IMenuState } from "./reducers/meunReducer";
-import routeReducer, { IRouteState } from './reducers/routeReducer';
+import menuReducer, {IMenuState} from "./reducers/meunReducer";
+import routeReducer, {IRouteState} from './reducers/routeReducer';
 
 export interface IState {
   menus: IMenuState;

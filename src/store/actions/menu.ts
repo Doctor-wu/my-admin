@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import { IMenuAction, IMenuState } from "../reducers/meunReducer";
-import { actionTypes } from "../reducers/types";
+import {IMenuAction} from "../reducers/meunReducer";
+import {actionTypes} from "../reducers/types";
 
 
 export const setMenuAction:(...args:Array<any>)=>any = (menus:Array<any>)=>

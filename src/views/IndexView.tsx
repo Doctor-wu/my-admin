@@ -1,12 +1,9 @@
 import React from "react";
-import {Statistic, Row, Col, Button, Card} from 'antd';
-import {Image, Space, Table, Tag} from 'antd';
-import {DollarCircleOutlined,BarsOutlined,UserOutlined} from "@ant-design/icons";
+import {Col, Row} from 'antd';
+import {BarsOutlined, DollarCircleOutlined, UserOutlined} from "@ant-design/icons";
 import LayoutCard from "../components/LayoutCard";
 import Hotkownledge from "../components/IndexView/Hotkownledge";
 import HotkownledgeLine from "../components/IndexView/HotkownledgeLine";
-
-
 
 
 class BannerList extends React.Component {

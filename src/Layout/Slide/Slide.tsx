@@ -1,11 +1,11 @@
 import React from "react";
 import "./Slide.scss";
-import { Menu } from "antd";
-import { IState } from "../../store/index";
-import { Dispatch } from "redux";
-import { IMenuAction } from "../../store/reducers/meunReducer";
-import { connect } from "react-redux";
-import { routeInfo } from "../../routes";
+import {Menu} from "antd";
+import {IState} from "../../store/index";
+import {Dispatch} from "redux";
+import {IMenuAction} from "../../store/reducers/meunReducer";
+import {connect} from "react-redux";
+import {routeInfo} from "../../routes";
 
 const { SubMenu } = Menu;
 

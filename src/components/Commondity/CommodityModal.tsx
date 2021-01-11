@@ -1,7 +1,6 @@
 import React, {forwardRef, useImperativeHandle, useRef, useState} from "react";
-import {message, Modal} from "antd";
+import {Modal} from "antd";
 import CommodityForm from "./CommodityForm";
-import {log} from "util";
 
 export enum commodityModalMode {
     "attach",

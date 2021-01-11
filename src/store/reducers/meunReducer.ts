@@ -1,4 +1,4 @@
-import { routeInfo, staticMenu } from "../../routes";
+import {routeInfo, staticMenu} from "../../routes";
 import {actionTypes} from "./types"
 
 export interface IMenuState {
