@@ -74,8 +74,8 @@ class Login extends React.Component {
                 <QueueAnim>
                     <Row className="login-logo">
                         <Col span={4} offset={10}>
-                            <AppstoreFilled style={{color: "#000", fontSize: "40px", marginRight: "10px"}}/>
-                            <h2>Admin</h2>
+                            <AppstoreFilled style={{color: "#000", fontSize: "90px", marginRight: "10px"}}/>
+                            <h2 style={{fontSize:"40px"}}>欢茶 · 管理系统</h2>
                         </Col>
                     </Row>
                     <Row className="login-container">

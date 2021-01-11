@@ -27,7 +27,7 @@ const Header = () => {
         <div className="header_wrapper">
             <div className="logo">
                 <ShopOutlined style={{color: "#fff", fontSize: "40px", marginRight: "10px"}}/>
-                Admin
+                悲茶
             </div>
             <div className="operation">
                 <Dropdown overlay={dropdown}>

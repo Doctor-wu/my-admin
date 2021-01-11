@@ -1,24 +1,24 @@
 import React, {forwardRef, useImperativeHandle, useRef, useState} from "react";
 import {message, Modal} from "antd";
-import CommodityForm from "./CommodityForm";
+import BannerForm from "./BannerForm";
 import {log} from "util";
 
-export enum commodityModalMode {
+export enum bannerModalMode {
     "attach",
     "edit"
 }
-export interface commodityModalProps {
-    mode: commodityModalMode;
+export interface bannerModalProps {
+    mode: bannerModalMode;
     parent: React.Component;
     children: (showModal:any)=>JSX.Element;
     ModalDataSource?:any
 }
 
 
-let CommodityModal:any = (props: commodityModalProps,ref:any)=> {
+let BannerModal:any = (props: bannerModalProps, ref:any)=> {
     let [visible, setVisible] = useState(false);
     let [confirmLoading, setConfirmLoading] = useState(false);
-    let [mode, setMode] = useState<commodityModalMode>(commodityModalMode.attach);
+    let [mode, setMode] = useState<bannerModalMode>(bannerModalMode.edit);
     let [fields, setFields] = useState([]);
     let formRef = useRef()
     const showModal = () => {
@@ -27,7 +27,7 @@ let CommodityModal:any = (props: commodityModalProps,ref:any)=> {
 
     const closeModal = ()=>{
         setVisible(false);
-        setMode(commodityModalMode.attach);
+        setMode(bannerModalMode.edit);
         // @ts-ignore
         formRef.current.form.resetFields();
         setConfirmLoading(false);
@@ -37,17 +37,7 @@ let CommodityModal:any = (props: commodityModalProps,ref:any)=> {
     };
 
     const handleOk = () => {
-       if(mode === commodityModalMode.attach){
-           // @ts-ignore
-           formRef.current.submit().then(_=>{
-               // @ts-ignore
-               props.parent.refresh()
-               closeModal();
-               // @ts-ignore
-           }).catch(_=>{
-               setConfirmLoading(false);
-           })
-       } else if(mode === commodityModalMode.edit){
+        if(mode === bannerModalMode.edit){
            // @ts-ignore
            formRef.current.update().then(_=>{
                // @ts-ignore
@@ -80,10 +70,8 @@ let CommodityModal:any = (props: commodityModalProps,ref:any)=> {
                 title={
                     (() => {
                         switch (mode) {
-                            case commodityModalMode.attach:
-                                return "添加商品"
-                            case commodityModalMode.edit:
-                                return "修改商品"
+                            case bannerModalMode.edit:
+                                return "修改banner"
                         }
                     })()
                 }
@@ -94,11 +82,11 @@ let CommodityModal:any = (props: commodityModalProps,ref:any)=> {
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
             >
-                    <CommodityForm fields={fields} ref={formRef}/>
+                    <BannerForm fields={fields} ref={formRef}/>
             </Modal>
         </>
     )
 }
-CommodityModal = forwardRef(CommodityModal);
+BannerModal = forwardRef(BannerModal);
 
-export default CommodityModal;
+export default BannerModal;

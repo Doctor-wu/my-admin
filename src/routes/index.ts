@@ -12,6 +12,7 @@ import Login from "../views/Login";
 import CommodityList from "../views/CommodityList";
 import BannerList from "../views/BannerList";
 import IndexView from "../views/IndexView";
+import OrderList from "../views/OrderList";
 
 export interface routeInfo {
   path?: string;
@@ -46,9 +47,9 @@ export const staticMenu: Array<routeInfo> = [
     name: "订单管理",
     subs: [
       {
-        path: "/hello",
+        path: "/orderList",
         name: "订单列表",
-        component: () => Content({show: "hello"}),
+        component: OrderList,
         icon: OrderedListOutlined,
       },
     ],
@@ -71,7 +72,7 @@ export const staticMenu: Array<routeInfo> = [
     name: "Banner管理",
     subs: [
       {
-        path: "/uploadBanner",
+        path: "/bannerList",
         name: "更新Banner",
         icon: OrderedListOutlined,
         component: BannerList,

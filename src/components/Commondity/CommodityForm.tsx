@@ -1,6 +1,6 @@
-import React, {forwardRef, useImperativeHandle, useRef} from 'react';
+import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
-import {Form, Image, Input, InputNumber, message, Radio, Select} from 'antd';
+import {Form, Image, Input, InputNumber, message, Radio, Select, Spin} from 'antd';
 import {Option} from "antd/es/mentions";
 import {CommodityListApi} from "../../api/CommodityListApi";
 import {typeMap} from "./CommondityTable";
@@ -34,16 +34,14 @@ let CommodityForm: any = (props: any, ref: any) => {
         message.error(`Failed: ${errorInfo}`);
     };
     const formRef = useRef();
-    let images = [
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0001.jpg",
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0002.jpg",
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0003.jpg",
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0004.jpg",
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0005.jpg",
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0006.jpg",
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0007.jpg",
-        "https://springboot-exp-1255644734.cos.ap-guangzhou.myqcloud.com/id0008.jpg"
-    ]
+    let [images, setImages] = useState([]);
+    let [loading, setLoading] = useState(true);
+    useEffect(()=>{
+      CommodityListApi.getCommodityCosAllImages().then(res=>{
+          setImages(res.data);
+          setLoading(false);
+      })
+    },[])
 
     const submit = () => {
         return new Promise(((resolve, reject) => {
@@ -117,17 +115,21 @@ let CommodityForm: any = (props: any, ref: any) => {
                 </Select>
             </Form.Item>
             <Form.Item name="image" label="商品图片" rules={[{required: true}]}>
-                <Radio.Group>
-                    {images.map(image => {
-                        return (
-                            <>
-                                <Radio value={image}>
-                                    <Image style={{margin: "5px"}} width={75} src={image}/>
-                                </Radio>
-                            </>
-                        )
-                    })}
-                </Radio.Group>
+                {
+                    loading
+                        ? <Spin/>
+                        :<Radio.Group>
+                            {images.map(image => {
+                                return (
+                                    <>
+                                        <Radio value={image}>
+                                            <Image style={{margin: "5px"}} width={75} src={image}/>
+                                        </Radio>
+                                    </>
+                                )
+                            })}
+                        </Radio.Group>
+                }
             </Form.Item>
         </Form>
     );
